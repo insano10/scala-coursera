@@ -1,24 +1,18 @@
 
+def sqrt(x: Double): Double = {
 
-def sqrtIter(guess: Double, x: Double): Double =
-  if (betterIsGoodEnough(guess, x)) guess
-  else sqrtIter(improveGuess(guess, x), x)
+  def sqrtIter(guess: Double): Double =
+    if (isGoodEnough(guess)) guess
+    else sqrtIter(improveGuess(guess))
 
+  def isGoodEnough(guess: Double): Boolean =
+    Math.abs(guess * guess - x) < x / 1000
 
+  def improveGuess(guess: Double): Double =
+    (guess + x / guess) / 2
 
-def isGoodEnough(guess: Double, x: Double): Boolean =
-  Math.abs(guess * guess - x) < 0.001
-
-def betterIsGoodEnough(guess: Double, x: Double): Boolean =
-  Math.abs(guess * guess - x) < x/1000
-
-
-
-def improveGuess(guess: Double, x: Double): Double =
-  (guess + x / guess) / 2
-
-def sqrt(x: Double): Double =
-  sqrtIter(1, x)
+  sqrtIter(1)
+}
 
 sqrt(2)
 sqrt(4)
