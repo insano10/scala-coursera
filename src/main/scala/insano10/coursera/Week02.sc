@@ -70,35 +70,25 @@ def intermediateSum(f: Int => Int): (Int, Int) => Int = {
     if (a > b) 0 else f(a) + sumF(a + 1, b)
   sumF
 }
-
 //currying
 def sumSquare = intermediateSum(x => x * x)
 def sumCube = intermediateSum(x => x * x * x)
-
 sumSquare(1, 2)
 sumCube(1, 2)
-
 intermediateSum(x => x * x)(1, 2)
 intermediateSum(x => x * x * x)(1, 2)
 
 //this is syntactic sugar to define a curried function without the nested function
 def shortSum(f: Int => Int)(a: Int, b: Int): Int =
   if (a > b) 0 else f(a) + shortSum(f)(a + 1, b)
-
 shortSum(x => x)(1, 10)
 shortSum(x => x * x)(1, 2)
-
-
 //exercises
-
 def product(f: Int => Int)(a: Int, b: Int): Int =
   if (a > b) 1 else f(a) * product(f)(a + 1, b)
-
 product(x => x)(1, 3)
-
 def factorial(n: Int) =
   product(x => x)(1, n)
-
 factorial(3)
 
 def general(f: Int => Int)(a: Int, b: Int)(terminalVal: Int)(operator: (Int, Int) => Int): Int =
@@ -109,11 +99,31 @@ general(x => x)(1, 3)(0)((x, y) => x + y)
 
 //factorial
 general(x => x)(1, 3)(1)((x, y) => x * y)
-
 //this can be jiggled around a bit to give us mapreduce!
-
 def mapreduce(f: Int => Int, combine: (Int, Int) => Int, terminalVal: Int)(a: Int, b: Int): Int =
   if (a > b) terminalVal else combine(f(a), mapreduce(f, combine, terminalVal)(a + 1, b))
-
 mapreduce(x => x, (x, y) => x + y, 0)(1, 3)
 mapreduce(x => x, (x, y) => x * y, 1)(1, 3)
+
+
+//fixed point
+
+def fixedPoint(f: Double => Double)(initialVal: Double): Double = {
+
+  val tolerance = 0.0001
+  def iterate(guess: Double): Double = {
+    val nextGuess = f(guess)
+    if (isGoodEnough(guess, nextGuess)) guess
+    else iterate(nextGuess)
+  }
+  def isGoodEnough(guess: Double, nextGuess: Double): Boolean =
+    Math.abs((guess - nextGuess) / guess) / guess < tolerance
+  iterate(initialVal)
+}
+def sqrt(x: Double) = fixedPoint(y => (y + x / y) / 2)(1)
+sqrt(2)
+
+//average dampening
+def averageDamp(f: Double => Double)(x: Double) = (x + f(x)) / 2
+def sqrtWithDamp(x: Double) = fixedPoint(averageDamp(y => x/y))(1)
+sqrtWithDamp(2)
