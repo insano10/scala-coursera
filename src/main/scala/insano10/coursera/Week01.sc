@@ -1,5 +1,7 @@
 import scala.annotation.tailrec
 
+//functions and blocks
+
 def sqrt(x: Double): Double = {
 
   def sqrtIter(guess: Double): Double =
@@ -22,6 +24,9 @@ sqrt(0.001)
 sqrt(0.1e-20)
 sqrt(1.0e20)
 sqrt(1.0e50)
+
+
+//tail recursion
 
 @tailrec
 def gcd(x: Int, y: Int): Int =
