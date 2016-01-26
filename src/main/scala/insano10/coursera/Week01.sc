@@ -40,7 +40,7 @@ def tailRecursiveFactorial(n: Int): Int = {
 
   @tailrec
   def recurse(n: Int, total: Int): Int =
-    if (n == 0) total else recurse(n - 1, n * total)
+    if (n == 1) total else recurse(n - 1, n * total)
 
   recurse(n, 1)
 }
