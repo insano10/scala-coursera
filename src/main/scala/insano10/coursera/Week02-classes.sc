@@ -3,8 +3,8 @@ class Rational(x: Int, y: Int) {
   private def gcd(x: Int, y: Int): Int = if (y == 0) x else gcd(y, x % y)
   private val g = gcd(x, y)
 
-  def numer = x / Math.abs(g)
-  def denom = y / Math.abs(g)
+  val numer = x / Math.abs(g)
+  val denom = y / Math.abs(g)
 
   def add(other: Rational): Rational =
     new Rational(
