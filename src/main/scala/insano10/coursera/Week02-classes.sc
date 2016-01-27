@@ -1,6 +1,10 @@
 class Rational(x: Int, y: Int) {
-  def numer = x
-  def denom = y
+
+  private def gcd(x: Int, y: Int): Int = if (y == 0) x else gcd(y, x % y)
+  private val g = gcd(x, y)
+
+  def numer = x / Math.abs(g)
+  def denom = y / Math.abs(g)
 
   def add(other: Rational): Rational =
     new Rational(
@@ -30,5 +34,3 @@ val y = new Rational(5, 7)
 val z = new Rational(3, 2)
 
 x.sub(y).sub(z)
-
-
