@@ -5,9 +5,9 @@ abstract class IntSet {
   def contains(x: Integer): Boolean
 }
 
-class Empty extends IntSet {
+object Empty extends IntSet {
 
-  def inc(x: Integer): IntSet = new NonEmpty(x, new Empty, new Empty)
+  def inc(x: Integer): IntSet = new NonEmpty(x, Empty, Empty)
 
   def contains(x: Integer): Boolean = false
 
@@ -35,7 +35,7 @@ class NonEmpty(elem: Integer, left: IntSet, right: IntSet) extends IntSet {
 
 //persistent data structure behaviour
 //do not mutate, return a new data structure on modification
-val intSet = new Empty
+val intSet = Empty
 val i2 = intSet inc 5
 val i3 = i2 inc 10
 val i4 = i3 inc 3
@@ -46,3 +46,12 @@ i4 contains 10
 i4 contains 2
 
 i2 contains 10
+
+
+object Thing {
+  def num = 5
+}
+
+val x = Thing
+x.num
+Thing.num
