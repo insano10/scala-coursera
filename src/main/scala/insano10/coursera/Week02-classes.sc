@@ -1,5 +1,7 @@
 class Rational(x: Int, y: Int) {
 
+  require(y > 0, "denominator must be positive")
+
   private def gcd(x: Int, y: Int): Int = if (y == 0) x else gcd(y, x % y)
   private val g = gcd(x, y)
 
@@ -43,3 +45,6 @@ x.sub(y).sub(z)
 x.less(z)
 z.less(x)
 x.max(z)
+
+val num = new Rational(1, 2)
+assert(num.numer == 3, "numerator should be 3")
