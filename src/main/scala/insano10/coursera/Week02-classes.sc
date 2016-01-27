@@ -10,23 +10,23 @@ class Rational(x: Int, y: Int) {
   val numer = x / Math.abs(g)
   val denom = y / Math.abs(g)
 
-  def add(that: Rational): Rational =
+  def +(that: Rational): Rational =
     new Rational(
       this.numer * that.denom + that.numer * this.denom,
       this.denom * that.denom
     )
 
-  def neg: Rational =
+  def unary_- : Rational =
     new Rational(-numer, denom)
 
-  def sub(that: Rational): Rational =
-    add(that.neg)
+  def -(that: Rational): Rational =
+    this + -that
 
-  def less(that: Rational): Boolean =
+  def <(that: Rational): Boolean =
     this.numer * that.denom < that.numer * this.denom
 
   def max(that: Rational): Rational =
-    if(this.less(that)) that else this
+    if(this < that) that else this
 
   override def toString: String =
     numer + "/" + denom
@@ -35,17 +35,17 @@ class Rational(x: Int, y: Int) {
 val r = new Rational(1, 2)
 r.numer
 r.denom
-r.add(new Rational(1, 2))
-r.sub(new Rational(1, 4))
-r.neg
+r + new Rational(1, 2)
+r - new Rational(1, 4)
+-r
 
 val x = new Rational(1, 3)
 val y = new Rational(5, 7)
 val z = new Rational(3, 2)
 
-x.sub(y).sub(z)
-x.less(z)
-z.less(x)
+x - y - z
+x < z
+z < x
 x.max(z)
 
 val num = new Rational(3, 2)
@@ -53,3 +53,7 @@ assert(num.numer == 3, "numerator should be 3")
 
 //alternate constructor
 new Rational(4)
+
+//infix method calls
+x + x
+x.+(x)
