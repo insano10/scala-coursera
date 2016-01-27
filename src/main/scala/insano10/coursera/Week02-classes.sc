@@ -6,17 +6,23 @@ class Rational(x: Int, y: Int) {
   val numer = x / Math.abs(g)
   val denom = y / Math.abs(g)
 
-  def add(other: Rational): Rational =
+  def add(that: Rational): Rational =
     new Rational(
-      numer * other.denom + other.numer * denom,
-      denom * other.denom
+      this.numer * that.denom + that.numer * this.denom,
+      this.denom * that.denom
     )
 
   def neg: Rational =
     new Rational(-numer, denom)
 
-  def sub(other: Rational): Rational =
-    add(other.neg)
+  def sub(that: Rational): Rational =
+    add(that.neg)
+
+  def less(that: Rational): Boolean =
+    this.numer * that.denom < that.numer * this.denom
+
+  def max(that: Rational): Rational =
+    if(this.less(that)) that else this
 
   override def toString: String =
     numer + "/" + denom
@@ -34,3 +40,6 @@ val y = new Rational(5, 7)
 val z = new Rational(3, 2)
 
 x.sub(y).sub(z)
+x.less(z)
+z.less(x)
+x.max(z)
