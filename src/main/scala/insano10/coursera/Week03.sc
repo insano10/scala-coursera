@@ -3,6 +3,8 @@ abstract class IntSet {
   def inc(x: Integer): IntSet
 
   def contains(x: Integer): Boolean
+
+  def union(s : IntSet): IntSet
 }
 
 object Empty extends IntSet {
@@ -10,6 +12,8 @@ object Empty extends IntSet {
   def inc(x: Integer): IntSet = new NonEmpty(x, Empty, Empty)
 
   def contains(x: Integer): Boolean = false
+
+  def union(s: IntSet): IntSet = s
 
   override def toString: String = "."
 }
@@ -30,6 +34,11 @@ class NonEmpty(elem: Integer, left: IntSet, right: IntSet) extends IntSet {
     else true
   }
 
+  def union(s: IntSet): IntSet = {
+
+    left union s union right inc elem
+  }
+
   override def toString: String = "{" + left + elem + right + "}"
 }
 
@@ -47,7 +56,11 @@ i4 contains 2
 
 i2 contains 10
 
+val setA = new NonEmpty(5, new NonEmpty(1, Empty, Empty), new NonEmpty(7, Empty, Empty))
+val setB = new NonEmpty(7, new NonEmpty(3, Empty, Empty), Empty)
+setA union setB
 
+//singleton
 object Thing {
   def num = 5
 }
