@@ -4,7 +4,11 @@ abstract class IntSet {
 
   def contains(x: Integer): Boolean
 
-  def union(s : IntSet): IntSet
+  def union(s: IntSet): IntSet
+
+  def intersection(s: IntSet): IntSet
+
+  def visit(visitor: (Int, IntSet) => IntSet, acc: IntSet): IntSet
 }
 
 object Empty extends IntSet {
@@ -15,6 +19,10 @@ object Empty extends IntSet {
 
   def union(s: IntSet): IntSet = s
 
+  def intersection(s: IntSet): IntSet = Empty
+
+  def visit(visitor: (Int, IntSet) => IntSet, acc: IntSet): IntSet = acc
+
   override def toString: String = "."
 }
 
@@ -23,14 +31,14 @@ class NonEmpty(elem: Integer, left: IntSet, right: IntSet) extends IntSet {
   def inc(x: Integer): IntSet = {
 
     if (x < elem) new NonEmpty(elem, left inc x, right)
-    else if(x > elem) new NonEmpty(elem, left, right inc x)
+    else if (x > elem) new NonEmpty(elem, left, right inc x)
     else this
   }
 
   def contains(x: Integer): Boolean = {
 
-    if(x < elem) left contains x
-    else if(x > elem) right contains x
+    if (x < elem) left contains x
+    else if (x > elem) right contains x
     else true
   }
 
@@ -39,8 +47,25 @@ class NonEmpty(elem: Integer, left: IntSet, right: IntSet) extends IntSet {
     left union s union right inc elem
   }
 
+  def intersection(s: IntSet): IntSet = {
+
+    this.visit((num, acc) => {
+      if (s.contains(num)) acc.inc(num) else acc
+    }, Empty)
+  }
+
+  def visit(visitor: (Int, IntSet) => IntSet, acc: IntSet): IntSet = {
+
+    right.visit(visitor, left.visit(visitor, visitor(elem, acc)))
+  }
+
   override def toString: String = "{" + left + elem + right + "}"
 }
+
+val set1 = new NonEmpty(5, new NonEmpty(3, Empty, Empty), new NonEmpty(7, Empty, Empty))
+val set2 = new NonEmpty(5, new NonEmpty(3, Empty, Empty), new NonEmpty(8, Empty, Empty))
+
+val intersection = set1 intersection set2
 
 //persistent data structure behaviour
 //do not mutate, return a new data structure on modification
