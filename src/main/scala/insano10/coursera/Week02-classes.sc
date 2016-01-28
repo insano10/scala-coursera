@@ -57,3 +57,12 @@ new Rational(4)
 //infix method calls
 x + x
 x.+(x)
+
+//declaring fields of classes using parameter 'val' prefix
+class Foo(val x: Int, y: Int) {
+
+}
+
+new Foo(1,2).x
+//new Foo(1,2).y <- this doesn't work as y is not a field
+
