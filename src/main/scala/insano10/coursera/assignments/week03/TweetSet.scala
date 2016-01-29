@@ -2,6 +2,8 @@ package insano10.coursera.assignments.week03
 
 import TweetReader._
 
+import scala.annotation.tailrec
+
 /**
   * A class to represent tweets.
   */
@@ -163,7 +165,7 @@ class NonEmpty(elem: Tweet, left: TweetSet, right: TweetSet) extends TweetSet {
 
   def union(that: TweetSet): TweetSet = {
 
-    left.union(right.union(that)).incl(elem)
+    left.union(right.union(that.incl(elem)))
   }
 
   def mostRetweeted: Tweet = {
