@@ -23,7 +23,7 @@ object Empty extends IntSet {
 
   def visit(visitor: (Int, IntSet) => IntSet, acc: IntSet): IntSet = acc
 
-  override def toString: String = "."
+  override def toString: String = ""
 }
 
 class NonEmpty(elem: Integer, left: IntSet, right: IntSet) extends IntSet {
