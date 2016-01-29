@@ -93,3 +93,18 @@ object Thing {
 val x = Thing
 x.num
 Thing.num
+
+
+//week04 code
+
+def assertAllPos(s: IntSet): IntSet = {
+
+  s.visit(
+    (x, acc) => if (x < 0) throw new IllegalStateException(s"$x is negative") else s,
+    s)
+}
+
+val posSet = new NonEmpty(5, new NonEmpty(1, Empty, Empty), new NonEmpty(7, Empty, Empty))
+val negSet = new NonEmpty(5, new NonEmpty(-1, Empty, Empty), new NonEmpty(7, Empty, Empty))
+assertAllPos(posSet)
+assertAllPos(negSet)
