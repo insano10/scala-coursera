@@ -14,3 +14,23 @@ List(5)
 List(2, 3)
 
 //List(1,2)   => List.apply(1,2)
+
+
+//covariance and contravariance
+class Animal {}
+class Cat extends Animal {}
+class Leopard extends Cat {}
+
+// +R = covariant
+// -T = contravariant
+class Foo[-T, +R] {
+
+  def apply(t: T): R = ???
+}
+
+//this class.apply takes a Cat and gives you a Leopard
+val f = new Foo[Cat, Leopard]()
+
+//you can pass a subclass into a contravariant
+//you can assign into a superclass from a covariant
+val c: Animal = f.apply(new Leopard())
