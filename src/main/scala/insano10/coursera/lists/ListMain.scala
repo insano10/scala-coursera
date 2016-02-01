@@ -2,7 +2,7 @@ package insano10.coursera.lists
 
 object ListMain {
 
-  def singleton[T](elem: T): List[T] = new Cons[T](elem, new Nil[T])
+  def singleton[T](elem: T): List[T] = new Cons[T](elem, Nil)
 
   def nth[T](idx: Int, list: List[T]): T = {
 
@@ -17,7 +17,7 @@ object ListMain {
     val s2 = singleton("foo")
 
     //exercise nth
-    val list = new Cons(0, new Cons(1, new Cons(2, new Cons(3, new Cons(4, new Cons(5, new Nil))))))
+    val list = new Cons(0, new Cons(1, new Cons(2, new Cons(3, new Cons(4, new Cons(5, Nil))))))
 
     println(nth(0, list))
     println(nth(2, list))

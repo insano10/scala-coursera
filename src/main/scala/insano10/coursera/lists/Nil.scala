@@ -1,6 +1,6 @@
 package insano10.coursera.lists
 
-class Nil[T] extends List[T] {
+object Nil extends List[Nothing] {
 
   def isEmpty: Boolean = true
 

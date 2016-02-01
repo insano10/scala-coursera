@@ -1,6 +1,6 @@
 package insano10.coursera.lists
 
-trait List[T] {
+trait List[+T] {
 
   def isEmpty: Boolean
   def head: T

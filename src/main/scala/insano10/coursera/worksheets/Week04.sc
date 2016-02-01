@@ -2,11 +2,11 @@ import insano10.coursera.lists.{Cons, Nil}
 
 object List {
 
-  def apply[T](): Nil[T] = new Nil[T]
+  def apply[T]() = Nil
 
-  def apply[T](x: T): Cons[T] = new Cons[T](x, new Nil[T])
+  def apply[T](x: T): Cons[T] = new Cons[T](x, Nil)
 
-  def apply[T](x1: T, x2: T): Cons[T] = new Cons[T](x1, new Cons[T](x2, new Nil[T]))
+  def apply[T](x1: T, x2: T): Cons[T] = new Cons[T](x1, new Cons[T](x2, Nil))
 }
 
 List()
