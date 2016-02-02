@@ -3,11 +3,18 @@ val l = List(2, 3, 4)
 val l2 = 1 :: l
 
 val l3 = List(5, 6, 7)
-val l4 = l2 ::: l3
+val l4 = l2 ::: l3 //this only works for Lists
+val l4b = l2 ++ l3 //this works for all collections
 
 val l6 = (1 to 10).toList
 
 l4(3)
+
+//update the element at position x
+val l7 = l6.updated(0, 2)
+
+//get the index of the given element
+l7.indexOf(5)
 
 //how many elements satisfy the given predicate
 l4.count(e => e > 4)
@@ -50,6 +57,9 @@ l4.sortWith((e1, e2) => e2 > e1)
 
 //reduce a list given a combiner (e.g. return the highest value in the list)
 l4.reduce((e1, e2) => e1.max(e2))
+
+//does the list contain the element
+l4.contains(1)
 
 l4.head
 l4.tail
