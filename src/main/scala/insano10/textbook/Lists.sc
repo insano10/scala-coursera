@@ -61,11 +61,18 @@ l4.reduce((e1, e2) => e1.max(e2))
 //does the list contain the element
 l4.contains(1)
 
+//split a list into 2 sub lists with n elements in the first list
+val splitListTuple = l4.splitAt(2)
+splitListTuple._1
+splitListTuple._2
+
+//you can decompose a tuple directly into its constituent parts
+val (first, second) = l4.splitAt(2)
+
 l4.head
 l4.tail
 l4.last
 l4.init //all but the last element. Why would you need this?
-
 l4.reverse
 l4.isEmpty
 l4.length
