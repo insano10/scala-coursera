@@ -53,3 +53,18 @@ object Lists {
   removeAt(5, List(1, 2, 3, 4, 5))
   flatten(List(List(1, 1), 2, List(3, List(5, 8))))
 }
+
+object MergeSort {
+
+  def merge(xs: List[Int], ys: List[Int]): List[Int] =
+    (xs, ys) match {
+
+      case (Nil, ys2) => ys2
+      case (xs2, Nil) => xs2
+      case (x2 :: xs2, y2 :: ys2) =>
+        if (x2 < y2) x2 :: merge(xs2, ys)
+        else y2 :: merge(xs, ys2)
+    }
+
+  merge(List(1,2,5,9), List(2,3,4))
+}
