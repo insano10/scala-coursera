@@ -69,5 +69,9 @@ object HuffmanCodingMain {
     val code = encode(frenchCode)(List('h','i','m','y','n','a','m','e','i','s','j','e','n','n','y'))
     println(code)
     println(decode(frenchCode, code))
+
+    val quickCode = Huffman.quickEncode(frenchCode)(List('h','i','m','y','n','a','m','e','i','s','j','e','n','n','y'))
+    println(quickCode)
+    println(decode(frenchCode, quickCode))
   }
 }

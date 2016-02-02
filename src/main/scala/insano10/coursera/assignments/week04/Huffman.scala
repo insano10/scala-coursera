@@ -91,14 +91,41 @@ object Huffman {
 
       case Leaf(_, _) => Nil
       case Fork(left, right, _, _) =>
-        if(chars(left).contains(char)) 0 :: encodeChar(left)(char)
+        if (chars(left).contains(char)) 0 :: encodeChar(left)(char)
         else 1 :: encodeChar(right)(char)
     }
 
-    val encodeFunc = encodeChar(tree)
+    val encodeFunc = encodeChar(tree)_
 
     //turn each Char into a List[Bit] and flatmap them all together
     text.flatMap(c => encodeFunc(c))
+  }
+
+  type CodeTable = List[(Char, List[Bit])]
+
+  def mergeCodeTables(a: CodeTable, b: CodeTable): CodeTable = a ::: b
+
+  def convert(t: CodeTree): CodeTable = {
+
+    def iterate(treePointer: CodeTree, acc: List[Bit]): CodeTable = treePointer match {
+
+      case Leaf(c, _) => List((c, acc.reverse))
+      case Fork(left, right, _, _) => mergeCodeTables(iterate(left, 0 :: acc), iterate(right, 1 :: acc))
+    }
+
+    iterate(t, List())
+  }
+
+  def codeBits(table: CodeTable)(char: Char): List[Bit] = {
+
+    val charEncoding: Option[(Char, List[Bit])] = table.find(p => p._1 == char)
+    charEncoding.get._2
+  }
+
+  def quickEncode(tree: CodeTree)(text: List[Char]): List[Bit] = {
+
+    val codeTable = convert(tree)
+    text.flatMap(c => codeBits(codeTable)(c))
   }
 
 }
