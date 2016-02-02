@@ -58,7 +58,7 @@ object Huffman {
   @tailrec
   def until(p: List[CodeTree] => Boolean, combiner: List[CodeTree] => List[CodeTree])(trees: List[CodeTree]): List[CodeTree] = {
 
-    if(p(trees)) trees
+    if (p(trees)) trees
     else until(p, combiner)(combiner(trees))
   }
 
@@ -68,6 +68,21 @@ object Huffman {
     val leafList = makeOrderedLeafList(freqs)
 
     until(singleton, combine)(leafList).head
+  }
+
+  type Bit = Int
+
+  def decode(tree: CodeTree, bits: List[Bit]): List[Char] = {
+
+    def iterate(b: List[Bit], treePointer: CodeTree): List[Char] = {
+
+      treePointer match {
+        case Leaf(c, _) => if (b.isEmpty) List(c) else c :: iterate(b, tree)
+        case Fork(left, right, _, _) => if (b.head == 0) iterate(b.tail, left) else iterate(b.tail, right)
+      }
+    }
+
+    iterate(bits, tree)
   }
 
 }
