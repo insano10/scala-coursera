@@ -85,4 +85,20 @@ object Huffman {
     iterate(bits, tree)
   }
 
+  def encode(tree: CodeTree)(text: List[Char]): List[Bit] = {
+
+    def encodeChar(treePointer: CodeTree)(char: Char): List[Bit] = treePointer match {
+
+      case Leaf(_, _) => Nil
+      case Fork(left, right, _, _) =>
+        if(chars(left).contains(char)) 0 :: encodeChar(left)(char)
+        else 1 :: encodeChar(right)(char)
+    }
+
+    val encodeFunc = encodeChar(tree)
+
+    //turn each Char into a List[Bit] and flatmap them all together
+    text.flatMap(c => encodeFunc(c))
+  }
+
 }
