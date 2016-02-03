@@ -42,6 +42,23 @@ object Lists {
     case (y: Any) :: ys => y :: flatten(ys)
   }
 
+  def squareList(xs: List[Int]): List[Int] = xs match {
+    case Nil     => Nil
+    case y :: ys => y*y :: squareList(ys)
+  }
+  def squareListUsingMap(xs: List[Int]): List[Int] =
+    xs map (x => x * x)
+
+  def pack[T](xs: List[T]): List[List[T]] = xs match {
+    case Nil      => Nil
+    case x :: xs1 =>
+      val (first, rest) = xs.span(e => e == x)
+      first :: pack(rest)
+  }
+
+  def encode[T](xs: List[T]): List[(T, Int)] =
+    pack(xs).map(e => (e.head, e.length))
+
   last(List(1, 2, 3, 4, 5))
   init(List(1, 2, 3, 4, 5))
   concat(List(1, 2, 3), List(4, 5))
@@ -52,6 +69,11 @@ object Lists {
   removeAt(4, List(1, 2, 3, 4, 5))
   removeAt(5, List(1, 2, 3, 4, 5))
   flatten(List(List(1, 1), 2, List(3, List(5, 8))))
+  squareList(List(1,2,3))
+  squareListUsingMap(List(1,2,3))
+
+  pack(List("a", "a", "a", "b", "c", "c", "a"))
+  encode(List("a", "a", "a", "b", "c", "c", "a"))
 }
 
 object MergeSort {

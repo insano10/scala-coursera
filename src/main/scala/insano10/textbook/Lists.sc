@@ -28,6 +28,9 @@ val l5b = l4.dropRight(2)
 //remove all elements (starting from head) while the predicate is true
 val l5c = l4.dropWhile(e => e < 4)
 
+//return all alements (starting from head) while the predicate is true
+val l5d = l4.takeWhile(e => e < 3)
+
 //does there exist an element in the list satisfying the predicate
 l4.exists(e => e > 7)
 
@@ -60,6 +63,14 @@ l4.reduce((e1, e2) => e1.max(e2))
 
 //does the list contain the element
 l4.contains(1)
+
+//split the list into 2 sublists, one with elements satisfying the predicate and one not
+//this is like running 'filter' and 'filterNot' but it happens in 1 pass
+l4.partition(e => e % 2 == 0)
+
+//similar to partition but instead of the 2 returned lists being the output of filter
+//and filterNot, they are the output of takeWhile and dropWhile
+l4.span(e => e % 2 != 0)
 
 //split a list into 2 sub lists with n elements in the first list
 val splitListTuple = l4.splitAt(2)
