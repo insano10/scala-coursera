@@ -24,3 +24,11 @@ object ChecksumAccumulator {
   }
 
 }
+
+object ChecksumAccumulatorMain {
+
+  def main(args: Array[String]): Unit = {
+
+    println(ChecksumAccumulator.calculate("hello world"))
+  }
+}
