@@ -65,3 +65,13 @@ colour match {
   case "red" => "ewww, like blood"
   case _ => "whatevs"
 }
+
+//create a 10 x 10 multiplication table
+def multiTable: String = {
+
+  def makeRow(n: Int): String = (1 to 10).map(x => x * n).mkString(" ")
+
+  (1 to 10).map(makeRow).mkString("\n")
+}
+
+val table = multiTable
