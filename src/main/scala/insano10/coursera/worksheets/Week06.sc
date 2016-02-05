@@ -3,10 +3,16 @@
 val foo = Vector(1,2,3)
 foo(1)
 
+//append
 val foo2 = foo :+ 4
+
+//prepend
 val foo3 = 0 +: foo2
 
 foo3.map(e => e + 1)
+
+//fill
+val filledVector = Vector.fill(10)("* ")
 
 //Strings are sequences too
 val str = "Hello World"
