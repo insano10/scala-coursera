@@ -1,4 +1,14 @@
 
+//a for expression will yield a collection type equivalent to that passed in
+val l = List(1,2,3)
+for(x <- l; if x > 1) yield x
+
+val s = Set(1,2,3)
+for(x <- s; if x > 1) yield x
+
+val m = Map(1 -> "a", 2 -> "b", 3 -> "c")
+for(x <- m; if x._1 > 1) yield x
+
 /*
 
 for numbers i, j and n where 1 <= j < i < n
