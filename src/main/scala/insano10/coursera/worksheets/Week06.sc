@@ -49,6 +49,9 @@ seq.flatMap(c => List(c, " ")).mkString
 val listOfLists = List(List(1,2,3), List(4,5,6), List(7,8,9))
 listOfLists.flatMap(identity)
 
+//this can also be achieved by calling flatten
+listOfLists.flatten
+
 //exercises
 
 //return all the pairs (x,y) where x comes from seqA and y from seqB
