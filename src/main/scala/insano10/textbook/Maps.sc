@@ -29,3 +29,29 @@ initialisedMap.head
 initialisedMap.tail
 
 initialisedMap.fold("")((acc, value) => acc + value.toString)
+
+//get returns an Option
+initialisedMap.get(2)
+
+//you can pattern match on this Option as it is a case class
+initialisedMap.get(2) match {
+  case Some(x) => x
+  case None => "boo"
+}
+
+//collections have a groupBy function that returns a map where the key
+//is the output of the grouping function and the value is a list of elements
+//with the same key
+val animals = List("badger", "bee", "cat", "dog")
+animals.groupBy(_.head)
+
+//maps can have default values set
+val food = Map(1 -> "chocolate", 2 -> "bacon").withDefaultValue("beer")
+food(1)
+food.get(1)
+food(3)
+food.get(3)
+
+//varargs are denoted by an asterisk
+def pairsToMap[K,V](pairs: (K, V)*): Map[K,V] = pairs.toMap
+pairsToMap((1,2), (3,4), (5,6))
