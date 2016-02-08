@@ -1,5 +1,7 @@
 package insano10.coursera.assignments.week06
 
+import scala.collection.mutable
+import scala.collection.mutable.Map
 import scala.io.Source
 
 object Anagrams {
@@ -48,7 +50,6 @@ object Anagrams {
       else acc.updated(pair._1, acc(pair._1) - pair._2)).toList
 
 
-
   def wordsForOccurrences(occurrence: Occurrences): List[Word] = dictionaryByOccurrence.getOrElse(occurrence, Nil)
 
 
@@ -67,10 +68,34 @@ object Anagrams {
     anagrams(wordOccurrences(sentence.mkString))
   }
 
+  val cache: mutable.Map[Occurrences, List[Sentence]] = mutable.Map()
+  def sentenceAnagramsMemo(sentence: Sentence): List[Sentence] = {
+
+    def anagrams(occurrences: Occurrences): List[Sentence] = {
+
+      if (cache.contains(occurrences))
+        cache(occurrences)
+      else {
+        val sentences =
+          if (occurrences.isEmpty) List(List())
+          else for {
+            combination <- combinations(occurrences)
+            possibleWord <- wordsForOccurrences(combination)
+            sentence <- anagrams(subtract(occurrences, combination))
+            if combination.nonEmpty
+          } yield possibleWord :: sentence
+
+        cache += occurrences -> sentences
+        sentences
+      }
+    }
+    anagrams(wordOccurrences(sentence.mkString))
+  }
+
 
   def main(args: Array[String]): Unit = {
 
-    println(sentenceAnagrams(List("i", "love", "you")))
+    println(sentenceAnagramsMemo(List("i", "love", "love")))
   }
 }
 
