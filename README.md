@@ -1,3 +1,3 @@
 # scala-coursera
-random change
+random change 2
 Exercises from the scala coursera course
