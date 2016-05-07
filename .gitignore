@@ -1,4 +1,6 @@
 .idea/
 /target
+/exercises/target
+/otherProject/target
 /project/target
 /project/project/target
