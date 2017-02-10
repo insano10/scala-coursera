@@ -1,3 +1,3 @@
 # scala-coursera
 Exercises from the scala coursera course
-foo
+something - updated plugin and updated gocd
